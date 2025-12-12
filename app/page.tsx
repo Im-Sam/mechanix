@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import AddVehicleForm from './components/AddVehicleForm'
 import { CarFront, ArrowRight, Wrench } from 'lucide-react'
+import { LogOut } from 'lucide-react'
+
 
 export default async function Dashboard() {
   const supabase = await createClient()
