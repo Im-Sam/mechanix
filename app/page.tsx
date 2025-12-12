@@ -7,15 +7,23 @@ import { CarFront, ArrowRight, Wrench } from 'lucide-react'
 export default async function Dashboard() {
   const supabase = await createClient()
   
-  // Auth Check
+  // 1. Auth Check
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
 
-  // Fetch Vehicles
+  // 2. Fetch Vehicles
   const { data: vehicles } = await supabase
     .from('vehicles')
     .select('*')
     .order('created_at', { ascending: false })
+
+  // 3. Define the Sign Out Action
+  const signOut = async () => {
+    "use server"
+    const supabase = await createClient()
+    await supabase.auth.signOut()
+    return redirect('/login')
+  }
 
   return (
     <main className="min-h-screen bg-gray-50 p-6 md:p-12">
@@ -24,13 +32,22 @@ export default async function Dashboard() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">Mechanix - Virtual Garage Maintenance Tracker</h1>
+            <h1 className="text-3xl font-bold text-gray-900">My Virtual Garage</h1>
             <p className="text-gray-500 mt-1">Manage maintenance and history for your fleet.</p>
           </div>
-          <div className="text-right">
-             <span className="text-xs font-mono bg-gray-200 px-2 py-1 rounded text-gray-600">
+          
+          <div className="flex items-center gap-4 bg-white p-2 pl-4 rounded-lg border shadow-sm">
+             <span className="text-sm font-medium text-gray-600">
                {user.email}
              </span>
+             
+             {/* The Logout Button Form */}
+             <form action={signOut}>
+               <button className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-red-600 hover:text-red-700 hover:bg-red-50 rounded-md transition-colors">
+                 <LogOut className="w-3 h-3" />
+                 Log out
+               </button>
+             </form>
           </div>
         </div>
 
