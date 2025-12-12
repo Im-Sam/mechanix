@@ -34,7 +34,7 @@ export default async function Dashboard() {
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">My Virtual Garage</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Mechanix - Vehicle Maintenance Tracker</h1>
             <p className="text-gray-500 mt-1">Manage maintenance and history for your fleet.</p>
           </div>
           
